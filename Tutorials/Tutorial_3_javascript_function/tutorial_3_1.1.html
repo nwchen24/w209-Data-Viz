@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Javascript Function Example</title>
+</head>
+
+<body>
+
+	<h1>A Javavscript function example: Temperature Conversion based on user input</h1>
+	
+	<h2 id="result_heading">WILL BE FILLED IN BY SECOND FUNC Your Temperature Converted to C/F Is:</h2>
+
+	<p id="demo">Display result here</p>
+
+	<!-- This script element reads in the function stored in the outside file temp_convert.js-->
+	<script src="temp_convert.js"></script>
+
+	<!-- This script element brings up a dialog box and calls the temp convert function -->
+	<script>
+		//This brings up a dialog when the page opens that prompts the user to enter a temp
+		var user_input_temp = prompt("Please enter a temp (XXF or YYC)", "90F");
+
+		//Fill in the inner HTML of elements with id = result_heading depending on user input
+		document.getElementById("result_heading").innerHTML = scale_for_heading(user_input_temp);
+
+		//Fill in the inner HTML of elements with ID = demo
+		document.getElementById("demo").innerHTML = temp_convert_func(user_input_temp);
+
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Javascript Function Example</title>
+</head>
+
+<body>
+
+	<h1>A Javavscript function example: Temperature Conversion based on user input</h1>
+	
+	<h2>Your Temperature Converted to C/F Is:</h2>
+
+	<p id="demo">Display result here</p>
+
+<script>
+
+//user input
+var user_input_temp = prompt("Please enter a temp (XXF/C)", "90F");
+
+
+function temp_convert_func(temp_input){
+
+	//get last letter (C or F).
+	var scale = temp_input.slice(-1);
+	//get numerical temp.
+	var numerical_temp = temp_input.slice(0, - 1);
+	
+	//deal with celsius
+	if (scale === "C") {
+		return Math.round((1.8 * numerical_temp + 32)) + "F"
+	} 
+		
+	//deal with farenheit
+	if (scale === "F") {
+		return Math.round((numerical_temp - 32)/1.8) + "C"
+	} 
+}
+
+document.getElementById("demo").innerHTML = temp_convert_func(user_input_temp);
+
+</script>
+
+
+<button type="button" onclick="myFunction()">Try it</button>
+
+</body>
+
+</html>
+
