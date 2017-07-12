@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Colors in Context</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css'>
+    <style>
+
+  /*Set style of the headings*/
+     h1 {
+   text-align: center;
+   width: 820px;
+   font-family: 'Cardo';
+   color: #7E7E7E;
+   font-size:30pt;
+    }
+
+     p {
+   text-align: center;
+   width: 820px;
+   font-family: 'Cardo';
+   color: #7E7E7E;
+   font-size:14pt;
+    }
+    </style>
+
+  </head>
+
+
+
+<!-- Add title -->
+<h1>Colors in Context Example</h1>
+
+<!-- Add subtitle -->
+<p>The small square on the left is the same color as the small square on the right (hex code #7D9C81). The two interior squares appear as different colors based on the contex in which they are displayed</p>
+
+  <body>
+  <script>
+  //Make an SVG Container
+   var svgContainer = d3.select("body").append("svg")
+                                       .attr("width", 820)
+                                       .attr("height", 500);
+   
+   //Draw the first container rectangle
+   var rectangle1_outer = svgContainer
+   .append("rect")
+   .attr("x", 10)
+   .attr("y", 10)
+   .attr("width", 400)
+   .attr("height", 400)
+   .attr("fill", "#E7F8E9");
+
+  //Draw the second container rectangle
+   var rectangle2_outer = svgContainer
+   .append("rect")
+   .attr("x", 420)
+   .attr("y", 10)
+   .attr("width", 400)
+   .attr("height", 400)
+   .attr("fill", "#3D5640");
+
+   //Draw the first inside rectangle
+   var rectangle1_inner = svgContainer
+   .append("rect")
+   .attr("x", 160)
+   .attr("y", 160)
+   .attr("width", 100)
+   .attr("height", 100)
+   .attr("fill", "#7D9C81");
+
+   //Draw the second inside rectangle
+   var rectangle2_inner = svgContainer
+   .append("rect")
+   .attr("x", 580)
+   .attr("y", 160)
+   .attr("width", 100)
+   .attr("height", 100)
+   .attr("fill", "#7D9C81");
+
+    </script>
+  </body>
+</html>
