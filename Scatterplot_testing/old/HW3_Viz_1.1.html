@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+
+<!-- example tutorial saved here: http://bl.ocks.org/curran/8ac62d283a7aa6e95de8 -->
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Example</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Crimson Text' rel='stylesheet' type='text/css'>
+    <style>
+
+    /*Change the style of the bar labels*/
+     .axis text {
+      	fill: #808080;
+        font-family: 'Crimson Text';
+        font-size: 16pt;
+     }
+
+     /*Change the style of the x axis label*/
+     .axis.label {
+      	fill: #808080;
+        font-size: 16pt;
+     }
+
+     .axis path, .axis line {
+        fill: none;
+        stroke: #808080;
+        shape-rendering: crispEdges;
+     }
+     .y.axis path, .y.axis line {
+        stroke: none;
+     }
+
+	/*Set the fill color of the bars*/
+	rect{
+	  fill: #9BB794;
+	}
+
+	/*Set style of the headings*/
+     h1 {
+   color: #808080;
+   font-family: 'Crimson Text';
+ 		}
+
+     h2 {
+   color: #808080;
+   font-family: 'Crimson Text';
+ 		}
+
+
+    </style>
+  </head>
+
+<h1>Nick Chen Miles Ridden by Day of the Week</h1>
+<h2>April 10, 2017 - June 8, 2017</h2>
+
+  <body>
+    <script>
+
+      var outerWidth = 500;
+      var outerHeight = 300;
+      var margin = { left: 120, top: 0, right: 15, bottom: 90 };
+      var barPadding = 0.2;
+      var barPaddingOuter = 0.1;
+
+      var xColumn = "Miles Ridden";
+      var yColumn = "Day of the Week";
+      var xAxisLabelText = "Miles Ridden";
+      
+      // Vertical offset for x axis label
+      var xAxisLabelOffset = 50;
+
+      var innerWidth  = outerWidth  - margin.left - margin.right;
+      var innerHeight = outerHeight - margin.top  - margin.bottom;
+
+      var svg = d3.select("body").append("svg")
+        .attr("width",  outerWidth)
+        .attr("height", outerHeight);
+      var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      var xAxisG = g.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + innerHeight + ")")
+      var xAxisLabel = xAxisG.append("text")
+        .style("text-anchor", "middle")
+        .attr("x", innerWidth / 2)
+        .attr("y", xAxisLabelOffset)
+        .attr("class", "label")
+        .text(xAxisLabelText);
+      var yAxisG = g.append("g")
+        .attr("class", "y axis");
+
+      var xScale = d3.scale.linear().range([0, innerWidth]);
+      var yScale = d3.scale.ordinal().rangeRoundBands([0, innerHeight], barPadding, barPaddingOuter);
+
+      var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
+        .ticks(5)
+        .tickFormat(d3.format("s"))
+        .outerTickSize(0);
+      var yAxis = d3.svg.axis().scale(yScale).orient("left")
+        .outerTickSize(0);
+
+      function render(data){
+
+      	// NC edited
+        xScale.domain([0, d3.max(data, function (d){ return d.miles; })]);
+        yScale.domain(       data.map( function (d){ return d.day_of_week; }));
+
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+
+        var bars = g.selectAll("rect").data(data);
+        bars.enter().append("rect")
+          .attr("height", yScale.rangeBand());
+        bars
+          .attr("x", 0)
+          .attr("y",     function (d){ return yScale(d.day_of_week); })
+          .attr("width", function (d){ return xScale(d.miles); })
+
+        bars.exit().remove();
+      }
+
+      function type(d){
+        d.miles = +d.miles;
+        return d;
+      }
+
+      d3.csv("data/Nick-Chen-BikeRides-Transformed.csv", type, render);
+
+    </script>
+  </body>
+</html>
